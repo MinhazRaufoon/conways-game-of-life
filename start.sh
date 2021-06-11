@@ -1,4 +1,5 @@
 cd build
+rm -rf *
 cmake ../
-cmake --build . --target clean
+cmake --build .
 ./GameOfLife
