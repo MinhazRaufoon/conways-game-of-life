@@ -7,14 +7,12 @@
 
 class Region
 {
-
 public:
-  /* Region dimensions */
-  static constexpr int WIDTH{20};
-  static constexpr int HEIGHT{20};
+  /* Region dimension of each side */
+  static constexpr int LENGTH{20};
 
   /* The area of the region consisting of WIDTH x HEIGHT bits */
-  std::array<std::array<bool, WIDTH>, HEIGHT> grid;
+  std::array<std::array<bool, LENGTH>, LENGTH> grid;
 
   /* Constructors */
   Region() : grid{} {}
