@@ -1,0 +1,1 @@
+add_executable(GameOfLife main.cpp region.h region.cpp)
