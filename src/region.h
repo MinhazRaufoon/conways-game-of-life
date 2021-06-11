@@ -4,6 +4,8 @@
 #include <array>
 #include <bitset>
 #include <iostream>
+#include <map>
+#include <string>
 
 class Region
 {
@@ -12,13 +14,18 @@ public:
   static constexpr int LENGTH{20};
 
   /* The area of the region consisting of WIDTH x HEIGHT bits */
-  std::array<std::array<bool, LENGTH>, LENGTH> grid;
+  std::array<std::array<bool, LENGTH>, LENGTH> grid{};
 
-  /* Constructors */
-  Region() : grid{} {}
+  /* Neighbor edges */
+  std::map<std::string, std::array<bool, LENGTH>> neighborEdges{
+      {"top", {}},
+      {"right", {}},
+      {"bottom", {}},
+      {"left", {}},
+  };
 
   /* Operators */
-  auto &operator[](int index) { return this->grid[index]; }
+  bool &operator()(int row, int col);
 
   /* To output the region */
   friend std::ostream &operator<<(std::ostream &out, const Region &region);
