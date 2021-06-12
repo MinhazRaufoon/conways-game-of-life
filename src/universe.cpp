@@ -91,30 +91,47 @@ bool Universe::shouldExpandRight()
   return false;
 }
 
+void Universe::expandUp()
+{
+  this->rowCount++;
+}
+
+void Universe::expandDown()
+{
+  this->rowCount++;
+}
+
+void Universe::expandLeft()
+{
+  this->colCount++;
+}
+
+void Universe::expandRight()
+{
+  this->colCount++;
+
+  int lastCol{this->colCount - 1};
+
+  // Create the last column with new regions
+  for (int r{}; r < this->rowCount; r++)
+  {
+    this->regions[r][lastCol] = new Region(r, lastCol);
+  }
+}
+
 void Universe::expand()
 {
   if (this->shouldExpandRight())
-  {
-    this->colCount++;
-    for (int r{}; r < this->rowCount; r++)
-    {
-    }
-  }
+    this->expandRight();
 
   if (this->shouldExpandDown())
-  {
-    this->rowCount++;
-  }
+    this->expandDown();
 
   if (this->shouldExpandUp())
-  {
-    this->rowCount++;
-  }
+    this->expandUp();
 
   if (this->shouldExpandLeft())
-  {
-    this->colCount++;
-  }
+    this->expandLeft();
 }
 
 void Universe::next()

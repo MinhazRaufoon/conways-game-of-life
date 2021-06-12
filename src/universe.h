@@ -15,11 +15,19 @@ private:
 
   bool shouldExpandUp();
 
+  void expandUp();
+
   bool shouldExpandDown();
+
+  void expandDown();
 
   bool shouldExpandLeft();
 
+  void expandLeft();
+
   bool shouldExpandRight();
+
+  void expandRight();
 
   void expand();
 
