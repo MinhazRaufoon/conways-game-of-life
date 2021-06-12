@@ -13,10 +13,6 @@ Universe::Universe()
 
   Region &reg = *pReg;
 
-  reg(0, 0) = true;
-  reg(1, 0) = true;
-  reg(0, 1) = true;
-
   reg(i, i) = true;
   reg(i, i + 1) = true;
   reg(i + 1, i + 1) = true;
