@@ -6,11 +6,7 @@ int main()
 
   conwayUniverse.begin();
 
-  std::cout << "---------------" << std::endl;
-
   conwayUniverse.next();
-
-  std::cout << "---------------" << std::endl;
 
   conwayUniverse.next();
   return 0;

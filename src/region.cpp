@@ -1,13 +1,17 @@
 #include "region.h"
 
+int g_allocatedRegionCount{0};
+
 Region::Region()
 {
-  std::cout << "Region created" << std::endl;
+  g_allocatedRegionCount++;
 }
 
 Region::~Region()
 {
-  std::cout << "Region destroyed" << std::endl;
+  g_allocatedRegionCount--;
+  if (g_allocatedRegionCount == 0)
+    std::cout << "All regions destroyed" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &out, const Region &region)
