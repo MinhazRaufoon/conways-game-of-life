@@ -5,7 +5,7 @@ Universe::Universe()
 {
   // Create an initial region and add it to universe
   Region *pReg = new Region;
-  this->grid[0][0] = pReg;
+  this->regions[0][0] = pReg;
 
   // Make some cells alive as an initial state
   Region &reg = *pReg;
@@ -26,20 +26,20 @@ void Universe::evolveAllRegions()
   {
     for (int c{}; c < this->colCount; c++)
     {
-      Region *pRegion = this->grid[r][c];
+      Region *pRegion = this->regions[r][c];
 
       // Copy the neighbor edges
       if (r > 0)
-        pRegion->setTopNeighborEdge(*this->grid[r - 1][c]);
+        pRegion->setTopNeighborEdge(*this->regions[r - 1][c]);
 
       if (c < this->colCount - 1)
-        pRegion->setRightNeighborEdge(*this->grid[r][c + 1]);
+        pRegion->setRightNeighborEdge(*this->regions[r][c + 1]);
 
       if (r < this->rowCount - 1)
-        pRegion->setBottomNeighborEdge(*this->grid[r + 1][c]);
+        pRegion->setBottomNeighborEdge(*this->regions[r + 1][c]);
 
       if (c > 0)
-        pRegion->setLeftNeighborEdge(*this->grid[r][c - 1]);
+        pRegion->setLeftNeighborEdge(*this->regions[r][c - 1]);
 
       // Evolve each regions
       *pRegion = pRegion->evolve();
@@ -52,7 +52,7 @@ bool Universe::shouldExpandUp()
   for (int c{}; c < this->colCount; c++)
   {
     // If any region at top edge is reproductive
-    if (this->grid[0][c]->hasReproductiveTop())
+    if (this->regions[0][c]->hasReproductiveTop())
       return true;
   }
   return false;
@@ -63,7 +63,7 @@ bool Universe::shouldExpandDown()
   for (int c{}; c < this->colCount; c++)
   {
     // If any region at bottom edge is reproductive
-    if (this->grid[this->rowCount - 1][c]->hasReproductiveBottom())
+    if (this->regions[this->rowCount - 1][c]->hasReproductiveBottom())
       return true;
   }
   return false;
@@ -74,7 +74,7 @@ bool Universe::shouldExpandLeft()
   for (int r{}; r < this->rowCount; r++)
   {
     // If any region at left edge is reproductive
-    if (this->grid[r][0]->hasReproductiveLeft())
+    if (this->regions[r][0]->hasReproductiveLeft())
       return true;
   }
   return false;
@@ -85,7 +85,7 @@ bool Universe::shouldExpandRight()
   for (int r{}; r < this->rowCount; r++)
   {
     // If any region at right edge is reproductive
-    if (this->grid[r][this->colCount - 1]->hasReproductiveRight())
+    if (this->regions[r][this->colCount - 1]->hasReproductiveRight())
       return true;
   }
   return false;
@@ -130,7 +130,7 @@ Universe::~Universe()
     for (int c{}; c < this->colCount; c++)
     {
       // Free memory of each region
-      delete this->grid[r][c];
+      delete this->regions[r][c];
     }
   }
 }

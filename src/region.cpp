@@ -22,7 +22,7 @@ std::ostream &operator<<(std::ostream &out, const Region &region)
   char dead{'.'};
 
   // Print each cell at appropriate positions in 2D region
-  for (auto &line : region.grid)
+  for (auto &line : region.cells)
   {
     for (const bool &cell : line)
     {
@@ -46,7 +46,7 @@ bool &Region ::operator()(int row, int col)
     return this->neighborEdges["right"][row];
   else
     // Otherwise, read normally from the current region's grid
-    return this->grid[row][col];
+    return this->cells[row][col];
 }
 
 bool &Region::cell(int row, int col)

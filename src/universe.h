@@ -11,7 +11,7 @@ public:
   static constexpr int MAX_COLS{10};
 
 private:
-  std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> grid{};
+  std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> regions{};
 
   bool shouldExpandUp();
 

@@ -27,7 +27,7 @@ private:
   };
 
   /* The grid of the region consists of WIDTH x HEIGHT bits */
-  std::array<std::array<bool, LENGTH>, LENGTH> grid{};
+  std::array<std::array<bool, LENGTH>, LENGTH> cells{};
 
   int countAliveNeighborCells(int row, int col);
 
