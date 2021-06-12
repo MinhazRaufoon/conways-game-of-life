@@ -50,12 +50,48 @@ void Universe::evolveAllRegions()
 void Universe::expand()
 {
   bool shouldExpandUp{false};
-  bool shouldDown{false};
-  bool shouldLeft{false};
-  bool shouldRight{false};
+  bool shouldExpandDown{false};
+  bool shouldExpandLeft{false};
+  bool shouldExpandRight{false};
 
   for (int c{}; c < this->colCount; c++)
   {
+    if (this->grid[0][c]->hasReproductiveTop())
+    {
+      // If any region at top edge is reproductive
+      shouldExpandUp = true;
+      break;
+    }
+  }
+
+  for (int c{}; c < this->colCount; c++)
+  {
+    if (this->grid[this->rowCount - 1][c]->hasReproductiveBottom())
+    {
+      // If any region at bottom edge is reproductive
+      shouldExpandDown = true;
+      break;
+    }
+  }
+
+  for (int r{}; r < this->rowCount; r++)
+  {
+    if (this->grid[r][0]->hasReproductiveLeft())
+    {
+      // If any region at left edge is reproductive
+      shouldExpandLeft = true;
+      break;
+    }
+  }
+
+  for (int r{}; r < this->rowCount; r++)
+  {
+    if (this->grid[r][this->colCount - 1]->hasReproductiveRight())
+    {
+      // If any region at right edge is reproductive
+      shouldExpandRight = true;
+      break;
+    }
   }
 }
 

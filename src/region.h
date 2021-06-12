@@ -56,6 +56,7 @@ public:
   /* To evolve to next generation */
   Region evolve();
 
+  /* To determine the reproductive edges */
   bool hasReproductiveTop();
 
   bool hasReproductiveBottom();
