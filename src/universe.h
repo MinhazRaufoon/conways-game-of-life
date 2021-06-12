@@ -39,7 +39,7 @@ public:
 
   Universe();
 
-  void begin();
+  void run();
 
   void next();
 

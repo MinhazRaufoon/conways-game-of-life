@@ -16,7 +16,7 @@ Universe::Universe()
   reg(9, 12) = true;
 }
 
-void Universe::begin()
+void Universe::run()
 {
 }
 

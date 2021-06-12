@@ -4,10 +4,7 @@ int main()
 {
   Universe conwayUniverse;
 
-  conwayUniverse.begin();
+  conwayUniverse.run();
 
-  conwayUniverse.next();
-
-  conwayUniverse.next();
   return 0;
 }
