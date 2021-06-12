@@ -93,10 +93,28 @@ bool Universe::shouldExpandRight()
 
 void Universe::expand()
 {
-  bool shouldExpandUp{false};
-  bool shouldExpandDown{false};
-  bool shouldExpandLeft{false};
-  bool shouldExpandRight{false};
+  if (this->shouldExpandRight())
+  {
+    this->colCount++;
+    for (int r{}; r < this->rowCount; r++)
+    {
+    }
+  }
+
+  if (this->shouldExpandDown())
+  {
+    this->rowCount++;
+  }
+
+  if (this->shouldExpandUp())
+  {
+    this->rowCount++;
+  }
+
+  if (this->shouldExpandLeft())
+  {
+    this->colCount++;
+  }
 }
 
 void Universe::next()
