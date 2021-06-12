@@ -5,4 +5,8 @@ project(GameOfLife)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(SFML_STATIC_LIBRARIES TRUE)
+
 add_executable(GameOfLife src/main.cpp src/region.h src/region.cpp src/universe.h src/universe.cpp)
+
+target_link_libraries(GameOfLife sfml-graphics sfml-window sfml-system)

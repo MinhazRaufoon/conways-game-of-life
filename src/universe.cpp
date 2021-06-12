@@ -19,18 +19,6 @@ Universe::Universe()
 void Universe::run()
 {
   this->display();
-
-  while (this->colCount != 2 && this->rowCount != 2)
-  {
-    this->next();
-    this->display();
-  }
-
-  while (this->colCount != 3 && this->rowCount != 3)
-  {
-    this->next();
-    this->display();
-  }
 }
 
 void Universe::evolveAllRegions()
