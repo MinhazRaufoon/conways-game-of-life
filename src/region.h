@@ -59,6 +59,8 @@ public:
   bool &operator()(int row, int col);
 
   friend std::ostream &operator<<(std::ostream &out, const Region &region);
+
+  ~Region();
 };
 
 #endif

@@ -1,10 +1,19 @@
 #include "region.h"
 
-Region::Region() {}
+Region::Region()
+{
+  std::cout << "Region created" << std::endl;
+}
+
+Region::~Region()
+{
+  std::cout << "Region destroyed" << std::endl;
+}
 
 Region::Region(int row, int col)
     : rowIndex{row}, columnIndex{col}
 {
+  std::cout << "Region created" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &out, const Region &region)
