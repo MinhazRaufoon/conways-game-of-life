@@ -45,13 +45,13 @@ public:
   int countDeadNeighbors(int row, int col);
 
   /* To calculate neighbors' edges */
-  void setTopNeighborEdge(Region &neighbor);
+  void setTopNeighborEdge(Region &topNeighbor);
 
-  void setRightNeighborEdge(Region &neighbor);
+  void setRightNeighborEdge(Region &rightNeighbor);
 
-  void setBottomNeighborEdge(Region &neighbor);
+  void setBottomNeighborEdge(Region &bottomNeighbor);
 
-  void setLeftNeighborEdge(Region &neighbor);
+  void setLeftNeighborEdge(Region &leftNeighbor);
 
   /* To evolve to next generation */
   Region evolve();

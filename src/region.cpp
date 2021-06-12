@@ -21,6 +21,7 @@ std::ostream &operator<<(std::ostream &out, const Region &region)
   char alive{'O'};
   char dead{'.'};
 
+  // Print each cell at appropriate positions in 2D region
   for (auto &line : region.grid)
   {
     for (const bool &cell : line)
@@ -34,6 +35,7 @@ std::ostream &operator<<(std::ostream &out, const Region &region)
 
 bool &Region ::operator()(int row, int col)
 {
+  // If trying to access a cell from neighbor regions, read from this->neighborEdges
   if (row < 0)
     return this->neighborEdges["top"][col];
   else if (row >= this->LENGTH)
@@ -43,6 +45,7 @@ bool &Region ::operator()(int row, int col)
   else if (col >= this->LENGTH)
     return this->neighborEdges["right"][row];
   else
+    // Otherwise, read normally from the current region's grid
     return this->grid[row][col];
 }
 
@@ -58,8 +61,11 @@ int Region::countAliveNeighbors(int row, int col)
   {
     for (int j{col - 1}; j <= col + 1; j++)
     {
+      // Ignore self
       if (i == row && j == col)
         continue;
+
+      // Count alive neighbor cells
       if (cell(i, j))
         count++;
     }
@@ -85,12 +91,12 @@ Region Region::evolve()
 
       if (this->cell(r, c))
       {
-        // For alive cell
+        // Decide fate of the alive cell
         evolved.cell(r, c) = aliveNeighborCount == 2 || aliveNeighborCount == 3;
       }
       else
       {
-        // For dead cell
+        // Decide fate of the dead cell
         evolved.cell(r, c) = aliveNeighborCount == 3;
       }
     }
@@ -99,43 +105,47 @@ Region Region::evolve()
   return evolved;
 }
 
-void Region::setTopNeighborEdge(Region &neighbor)
+void Region::setTopNeighborEdge(Region &topNeighbor)
 {
   std::string key{"top"};
 
+  // Copy the bottom layer cells of top neighbor into this->neighborEdges["top"]
   for (int c{}; c < this->LENGTH; c++)
   {
-    this->neighborEdges[key][c] = neighbor.cell(this->LENGTH - 1, c);
+    this->neighborEdges[key][c] = topNeighbor.cell(this->LENGTH - 1, c);
   }
 }
 
-void Region::setRightNeighborEdge(Region &neighbor)
+void Region::setRightNeighborEdge(Region &rightNeighbor)
 {
   std::string key{"right"};
 
+  // Copy the left layer cells of right neighbor into this->neighborEdges["right"]
   for (int r{}; r < this->LENGTH; r++)
   {
-    this->neighborEdges[key][r] = neighbor.cell(r, 0);
+    this->neighborEdges[key][r] = rightNeighbor.cell(r, 0);
   }
 }
 
-void Region::setBottomNeighborEdge(Region &neighbor)
+void Region::setBottomNeighborEdge(Region &bottomNeighbor)
 {
   std::string key{"bottom"};
 
+  // Copy the top layer cells of bottom neighbor into this->neighborEdges["bottom"]
   for (int c{}; c < this->LENGTH; c++)
   {
-    this->neighborEdges[key][c] = neighbor.cell(0, c);
+    this->neighborEdges[key][c] = bottomNeighbor.cell(0, c);
   }
 }
 
-void Region::setLeftNeighborEdge(Region &neighbor)
+void Region::setLeftNeighborEdge(Region &leftNeighbor)
 {
   std::string key{"left"};
 
+  // Copy the right layer cells of left neighbor into this->neighborEdges["left"]
   for (int r{}; r < this->LENGTH; r++)
   {
-    this->neighborEdges[key][r] = neighbor.cell(r, this->LENGTH);
+    this->neighborEdges[key][r] = leftNeighbor.cell(r, this->LENGTH - 1);
   }
 }
 
