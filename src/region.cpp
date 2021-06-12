@@ -2,18 +2,12 @@
 
 Region::Region()
 {
-  std::cout << "Region created at " << this->rowIndex << "," << this->columnIndex << std::endl;
+  std::cout << "Region created" << std::endl;
 }
 
 Region::~Region()
 {
-  std::cout << "Region destroyed at " << this->rowIndex << "," << this->columnIndex << std::endl;
-}
-
-Region::Region(int rowIndex, int columnIndex)
-    : rowIndex{rowIndex}, columnIndex{columnIndex}
-{
-  std::cout << "Region created at " << this->rowIndex << "," << this->columnIndex << std::endl;
+  std::cout << "Region destroyed" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &out, const Region &region)
@@ -147,12 +141,6 @@ void Region::setLeftNeighborEdge(Region &leftNeighbor)
   {
     this->neighborEdges[key][r] = leftNeighbor.cell(r, this->LENGTH - 1);
   }
-}
-
-void Region::adjustPosition(int newRowIndex, int newColumnIndex)
-{
-  this->rowIndex = newRowIndex;
-  this->columnIndex = newColumnIndex;
 }
 
 bool Region::hasReproductiveTop()

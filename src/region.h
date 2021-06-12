@@ -13,10 +13,6 @@ public:
   /* Region dimension of each side */
   static constexpr int LENGTH{20};
 
-  /* Position of the region in the universe */
-  int rowIndex{0};
-  int columnIndex{0};
-
 private:
   /* Edges of top right bottom left neighbors */
   std::map<std::string, std::array<bool, LENGTH>> neighborEdges{
@@ -36,10 +32,6 @@ private:
 public:
   /* Constructors */
   Region();
-
-  Region(int rowIndex, int columnIndex);
-
-  void adjustPosition(int newRowIndex, int newColumnIndex);
 
   // To get a cell at a position
   bool &cell(int row, int col);

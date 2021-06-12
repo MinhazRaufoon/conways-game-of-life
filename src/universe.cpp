@@ -99,11 +99,25 @@ void Universe::expandUp()
 void Universe::expandDown()
 {
   this->rowCount++;
+
+  int lastRow{this->rowCount - 1};
+
+  // Create the last row with new regions
+  for (int c{}; c < this->colCount; c++)
+  {
+    this->regions[lastRow][c] = new Region;
+  }
 }
 
 void Universe::expandLeft()
 {
   this->colCount++;
+
+  // Create the last column with new regions
+  for (int r{}; r < this->rowCount; r++)
+  {
+    this->regions[r][0] = new Region;
+  }
 }
 
 void Universe::expandRight()
@@ -115,7 +129,7 @@ void Universe::expandRight()
   // Create the last column with new regions
   for (int r{}; r < this->rowCount; r++)
   {
-    this->regions[r][lastCol] = new Region(r, lastCol);
+    this->regions[r][lastCol] = new Region;
   }
 }
 
