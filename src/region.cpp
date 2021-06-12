@@ -154,3 +154,50 @@ void Region::adjustPosition(int newRowIndex, int newColumnIndex)
   this->rowIndex = newRowIndex;
   this->columnIndex = newColumnIndex;
 }
+
+bool Region::hasReproductiveTop()
+{
+  for (int c{}; c < this->LENGTH - 3; c++)
+  {
+    // If any 3 adjacent cells are alive, the top is reproductive
+    if (cell(0, c) && cell(0, c + 1) && cell(0, c + 2))
+      return true;
+  }
+  return false;
+}
+
+bool Region::hasReproductiveBottom()
+{
+  int r{this->LENGTH - 1};
+
+  for (int c{}; c < this->LENGTH - 3; c++)
+  {
+    // If any 3 adjacent cells are alive, the bottom is reproductive
+    if (cell(r, c) && cell(r, c + 1) && cell(r, c + 2))
+      return true;
+  }
+  return false;
+}
+
+bool Region::hasReproductiveLeft()
+{
+  for (int r{}; r < this->LENGTH - 3; r++)
+  {
+    // If any 3 adjacent cells are alive, the left is reproductive
+    if (cell(r, 0) && cell(r + 1, 0) && cell(r + 2, 0))
+      return true;
+  }
+  return false;
+}
+
+bool Region::hasReproductiveRight()
+{
+  int c{this->LENGTH - 1};
+  for (int r{}; r < this->LENGTH - 3; r++)
+  {
+    // If any 3 adjacent cells are alive, the right is reproductive
+    if (cell(r, c) && cell(r + 1, c) && cell(r + 2, c))
+      return true;
+  }
+  return false;
+}

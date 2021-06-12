@@ -56,6 +56,14 @@ public:
   /* To evolve to next generation */
   Region evolve();
 
+  bool hasReproductiveTop();
+
+  bool hasReproductiveBottom();
+
+  bool hasReproductiveLeft();
+
+  bool hasReproductiveRight();
+
   bool &operator()(int row, int col);
 
   friend std::ostream &operator<<(std::ostream &out, const Region &region);
