@@ -11,7 +11,7 @@ class Region
 {
 public:
   /* Region dimension of each side */
-  static constexpr int LENGTH{20};
+  static constexpr int LENGTH{30};
 
 private:
   /* Edges of top right bottom left neighbors */

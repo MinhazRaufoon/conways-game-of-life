@@ -8,12 +8,15 @@ Universe::Universe()
   this->regions[0][0] = pReg;
 
   // Make some cells alive as an initial state
+
+  int i{Region::LENGTH / 2};
+
   Region &reg = *pReg;
-  reg(10, 10) = true;
-  reg(10, 11) = true;
-  reg(11, 11) = true;
-  reg(9, 11) = true;
-  reg(9, 12) = true;
+  reg(i, i) = true;
+  reg(i, i + 1) = true;
+  reg(i + 1, i + 1) = true;
+  reg(i - 1, i + 1) = true;
+  reg(i - 1, i + 2) = true;
 }
 
 void Universe::setPointDrawer(std::function<void(int, int)> func)
