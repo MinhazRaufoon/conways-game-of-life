@@ -20,7 +20,7 @@ void Universe::begin()
 {
 }
 
-void Universe::next()
+void Universe::evolveAllRegions()
 {
   for (int r{}; r < this->rowCount; r++)
   {
@@ -47,6 +47,16 @@ void Universe::next()
   }
 }
 
+void Universe::next()
+{
+  this->evolveAllRegions();
+  this->expand();
+}
+
+void expand()
+{
+}
+
 Universe::~Universe()
 {
   for (int r{}; r < this->rowCount; r++)
@@ -57,8 +67,4 @@ Universe::~Universe()
       delete this->grid[r][c];
     }
   }
-}
-
-void expand()
-{
 }

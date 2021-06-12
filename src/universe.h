@@ -15,6 +15,8 @@ private:
 
   void expand();
 
+  void evolveAllRegions();
+
 public:
   int rowCount;
   int colCount;
