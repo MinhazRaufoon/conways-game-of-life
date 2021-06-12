@@ -8,18 +8,14 @@ int main()
   reg(11, 11) = true;
   reg(9, 11) = true;
   reg(9, 12) = true;
+
   std::cout << reg << std::endl;
 
-  int x{100};
+  std::cout << std::endl;
 
-  Region &ref = reg;
+  reg = reg.evolve();
 
-  while (x--)
-  {
-    std::cout << std::endl;
-    ref = ref.evolve();
-    std::cout << ref << std::endl;
-  }
+  std::cout << reg << std::endl;
 
   return 0;
 }
