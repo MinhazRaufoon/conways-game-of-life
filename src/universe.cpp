@@ -28,6 +28,19 @@ void Universe::next()
     {
       Region *pRegion = this->grid[r][c];
 
+      // Copy the neighbor edges
+      if (r > 0)
+        pRegion->setTopNeighborEdge(*this->grid[r - 1][c]);
+
+      if (c < this->colCount - 1)
+        pRegion->setRightNeighborEdge(*this->grid[r][c + 1]);
+
+      if (r < this->rowCount - 1)
+        pRegion->setBottomNeighborEdge(*this->grid[r + 1][c]);
+
+      if (c > 0)
+        pRegion->setLeftNeighborEdge(*this->grid[r][c - 1]);
+
       // Evolve each regions
       *pRegion = pRegion->evolve();
     }
