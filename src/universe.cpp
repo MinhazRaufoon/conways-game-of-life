@@ -1,3 +1,6 @@
+#include <vector>
+#include <functional>
+#include <thread>
 #include "universe.h"
 
 Universe::Universe()
@@ -52,28 +55,55 @@ bool Universe::isRunning()
 
 void Universe::evolveAllRegions()
 {
+  std::vector<std::function<void()>> tasks;
+
+  // For all regions, create tasks for evolution
   for (int r{}; r < this->rowCount; r++)
   {
     for (int c{}; c < this->colCount; c++)
     {
       Region *pRegion = this->regions[r][c];
 
-      // Copy the neighbor edges
-      if (r > 0)
-        pRegion->setTopNeighborEdge(*this->regions[r - 1][c]);
+      int colCount = this->colCount;
+      int rowCount = this->rowCount;
 
-      if (c < this->colCount - 1)
-        pRegion->setRightNeighborEdge(*this->regions[r][c + 1]);
+      auto &regions = this->regions;
 
-      if (r < this->rowCount - 1)
-        pRegion->setBottomNeighborEdge(*this->regions[r + 1][c]);
+      tasks.push_back(
+          [pRegion, r, c, colCount, rowCount, &regions]() mutable
+          {
+            // Copy the neighbor edges
+            if (r > 0)
+              pRegion->setTopNeighborEdge(*regions[r - 1][c]);
 
-      if (c > 0)
-        pRegion->setLeftNeighborEdge(*this->regions[r][c - 1]);
+            if (c < colCount - 1)
+              pRegion->setRightNeighborEdge(*regions[r][c + 1]);
 
-      // Evolve each regions
-      *pRegion = pRegion->evolve();
+            if (r < rowCount - 1)
+              pRegion->setBottomNeighborEdge(*regions[r + 1][c]);
+
+            if (c > 0)
+              pRegion->setLeftNeighborEdge(*regions[r][c - 1]);
+
+            // Evolve each regions
+            *pRegion = pRegion->evolve();
+          });
     }
+  }
+
+  // Create threads for each task
+  std::vector<std::thread> workerThreads;
+
+  // Assign each task to each thread and start executing
+  for (auto task : tasks)
+  {
+    workerThreads.push_back(std::thread(task));
+  }
+
+  // Wait for them to finish
+  for (std::thread &thread : workerThreads)
+  {
+    thread.join();
   }
 }
 
