@@ -20,26 +20,19 @@ private:
 
   bool running{false};
 
+  /* Dynamically assigned view related functions */
   std::function<void(int, int)> pointDrawer{};
-
   std::function<void()> displayCleaner{};
-
   std::function<void()> displayUpdater{};
 
   bool shouldExpandUp();
-
-  void expandUp();
-
   bool shouldExpandDown();
-
-  void expandDown();
-
   bool shouldExpandLeft();
-
-  void expandLeft();
-
   bool shouldExpandRight();
 
+  void expandUp();
+  void expandDown();
+  void expandLeft();
   void expandRight();
 
   void expand();
