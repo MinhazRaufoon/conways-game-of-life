@@ -18,6 +18,19 @@ Universe::Universe()
 
 void Universe::run()
 {
+  this->display();
+
+  while (this->colCount != 2 && this->rowCount != 2)
+  {
+    this->next();
+    this->display();
+  }
+
+  while (this->colCount != 3 && this->rowCount != 3)
+  {
+    this->next();
+    this->display();
+  }
 }
 
 void Universe::evolveAllRegions()
@@ -188,6 +201,30 @@ void Universe::next()
 {
   this->evolveAllRegions();
   this->expand();
+}
+
+void Universe::display()
+{
+  std::cout << "#############################" << std::endl;
+  std::cout << *this << std::endl;
+}
+
+std::ostream &operator<<(std::ostream &out, const Universe &universe)
+{
+  char alive{'O'};
+  char dead{'.'};
+
+  for (int r{}; r < universe.rowCount; r++)
+  {
+    for (int c{}; c < universe.colCount; c++)
+    {
+      out << "Region at (" << r << ", " << c << ")" << std::endl;
+      out << *universe.regions[r][c] << std::endl
+          << std::endl;
+    }
+  }
+
+  return out;
 }
 
 Universe::~Universe()

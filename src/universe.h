@@ -43,6 +43,10 @@ public:
 
   void next();
 
+  void display();
+
+  friend std::ostream &operator<<(std::ostream &out, const Universe &universe);
+
   ~Universe();
 };
 
