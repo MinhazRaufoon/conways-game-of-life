@@ -1,10 +1,11 @@
 #include "universe.h"
 
-void Universe::begin()
+Universe::Universe()
+    : rowCount{1}, colCount{1}
 {
   // Create an initial region and add it to universe
   Region *pReg = new Region;
-  this->regions.push_back(pReg);
+  this->grid[0][0] = pReg;
 
   // Make some cells alive as an initial state
   Region &reg = *pReg;
@@ -15,21 +16,33 @@ void Universe::begin()
   reg(9, 12) = true;
 }
 
+void Universe::begin()
+{
+}
+
 void Universe::next()
 {
-  // Evolve every region
-  for (Region *pRegion : this->regions)
+  for (int r{}; r < this->rowCount; r++)
   {
-    *pRegion = pRegion->evolve();
+    for (int c{}; c < this->colCount; c++)
+    {
+      Region *pRegion = this->grid[r][c];
+
+      // Evolve each regions
+      *pRegion = pRegion->evolve();
+    }
   }
 }
 
 Universe::~Universe()
 {
-  // Clear regions in the dynamic memory
-  for (Region *pRegion : this->regions)
+  for (int r{}; r < this->rowCount; r++)
   {
-    delete pRegion;
+    for (int c{}; c < this->colCount; c++)
+    {
+      // Free memory of each region
+      delete this->grid[r][c];
+    }
   }
 }
 

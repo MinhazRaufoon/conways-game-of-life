@@ -1,19 +1,25 @@
 #ifndef UNIVERSE_H
 #define UNIVERSE_H
 
-#include <vector>
+#include <array>
 #include "region.h"
 
 class Universe
 {
+public:
+  static constexpr int MAX_ROWS{10};
+  static constexpr int MAX_COLS{10};
+
 private:
-  std::vector<Region *> regions;
+  std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> grid{};
 
   void expand();
 
 public:
-  static constexpr int MAX_ROWS{10};
-  static constexpr int MAX_COLS{10};
+  int rowCount;
+  int colCount;
+
+  Universe();
 
   void begin();
 
