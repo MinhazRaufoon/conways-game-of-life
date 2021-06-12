@@ -218,10 +218,25 @@ void Universe::next()
 
 void Universe::display()
 {
-  if (!this->pointDrawer)
+  if (!this->pointDrawer || !this->displayUpdater || !this->displayCleaner)
     return;
-  std::cout << "#############################" << std::endl;
-  std::cout << *this << std::endl;
+
+  this->displayCleaner();
+
+  // Render all regions
+  for (int r{}; r < this->rowCount; r++)
+  {
+    for (int c{}; c < this->colCount; c++)
+    {
+      this->renderRegion(r, c);
+    }
+  }
+
+  this->displayUpdater();
+}
+
+void Universe::renderRegion(int row, int col)
+{
 }
 
 std::ostream &operator<<(std::ostream &out, const Universe &universe)

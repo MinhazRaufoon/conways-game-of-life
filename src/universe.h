@@ -44,6 +44,8 @@ private:
 
   void evolveAllRegions();
 
+  void renderRegion(int row, int col);
+
 public:
   int rowCount;
   int colCount;
