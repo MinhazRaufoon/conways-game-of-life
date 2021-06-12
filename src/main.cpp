@@ -5,12 +5,32 @@
 
 int main()
 {
-  Universe conwayUniverse;
   sf::RenderWindow window(sf::VideoMode(Universe::HEIGHT, Universe::WIDTH), "Conway's Game of Life");
 
-  std::thread conwayThread(conwaySimulationThread, &conwayUniverse);
+  Universe conwayUniverse;
 
-  //sf::Vertex point(sf::Vector2f(1, 1), sf::Color::Green);
+  /* Set view related functions */
+  conwayUniverse.setPointDrawer(
+      [&window](int x, int y)
+      {
+        sf::Vertex point(sf::Vector2f(x, y), sf::Color::Green);
+        window.draw(&point, 1, sf::Points);
+      });
+
+  conwayUniverse.setDisplayCleaner(
+      [&window]()
+      {
+        window.clear();
+      });
+
+  conwayUniverse.setDisplayUpdater(
+      [&window]()
+      {
+        window.display();
+      });
+
+  /* Create necessary threads */
+  std::thread conwayThread(conwaySimulationThread, &conwayUniverse);
 
   while (window.isOpen())
   {
@@ -23,12 +43,9 @@ int main()
         window.close();
       }
     }
-
-    // window.clear();
-    // window.draw(&point, 1, sf::Points);
-    // window.display();
   }
 
+  /* Join for threads */
   conwayThread.join();
 
   return 0;

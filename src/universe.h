@@ -2,6 +2,7 @@
 #define UNIVERSE_H
 
 #include <array>
+#include <functional>
 #include "region.h"
 
 class Universe
@@ -16,6 +17,12 @@ private:
   std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> regions{};
 
   bool running{false};
+
+  std::function<void(int, int)> pointDrawer{};
+
+  std::function<void()> displayCleaner{};
+
+  std::function<void()> displayUpdater{};
 
   bool shouldExpandUp();
 
@@ -42,6 +49,12 @@ public:
   int colCount;
 
   Universe();
+
+  void setPointDrawer(std::function<void(int, int)>);
+
+  void setDisplayCleaner(std::function<void()>);
+
+  void setDisplayUpdater(std::function<void()>);
 
   bool isRunning();
 

@@ -16,6 +16,21 @@ Universe::Universe()
   reg(9, 12) = true;
 }
 
+void Universe::setPointDrawer(std::function<void(int, int)> func)
+{
+  this->pointDrawer = func;
+}
+
+void Universe::setDisplayCleaner(std::function<void()> func)
+{
+  this->displayCleaner = func;
+}
+
+void Universe::setDisplayUpdater(std::function<void()> func)
+{
+  this->displayUpdater = func;
+}
+
 void Universe::begin()
 {
   this->running = true;
@@ -203,6 +218,8 @@ void Universe::next()
 
 void Universe::display()
 {
+  if (!this->pointDrawer)
+    return;
   std::cout << "#############################" << std::endl;
   std::cout << *this << std::endl;
 }
