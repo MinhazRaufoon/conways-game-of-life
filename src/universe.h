@@ -8,7 +8,7 @@
 class Universe
 {
 public:
-  static constexpr int MAX_ROWS{15};
+  static constexpr int MAX_ROWS{12};
   static constexpr int MAX_COLS{7};
 
   static constexpr int POINTSCALE{3};
