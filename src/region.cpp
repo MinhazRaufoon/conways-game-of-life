@@ -1,5 +1,12 @@
 #include "region.h"
 
+Region::Region() {}
+
+Region::Region(int row, int col)
+    : rowIndex{row}, columnIndex{col}
+{
+}
+
 std::ostream &operator<<(std::ostream &out, const Region &region)
 {
   char alive{'O'};
@@ -121,4 +128,10 @@ void Region::setLeftNeighborEdge(Region &neighbor)
   {
     this->neighborEdges[key][r] = neighbor.cell(r, this->LENGTH);
   }
+}
+
+void Region::adjustPlacementInUniverse(int newRow, int newCol)
+{
+  this->rowIndex = newRow;
+  this->columnIndex = newCol;
 }
