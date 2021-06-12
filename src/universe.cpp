@@ -105,6 +105,15 @@ bool Universe::shouldExpandRight()
 
 void Universe::expandUp()
 {
+  for (int r{this->rowCount - 1}; r >= 0; r--)
+  {
+    for (int c{0}; c < this->colCount; c++)
+    {
+      // Shift every region by 1 toward right to make room at left
+      this->regions[r + 1][c] = this->regions[r][c];
+    }
+  }
+
   this->rowCount++;
 
   // Create the first row with new regions
@@ -129,6 +138,15 @@ void Universe::expandDown()
 
 void Universe::expandLeft()
 {
+  for (int r{0}; r < this->rowCount; r++)
+  {
+    for (int c{this->colCount - 1}; c >= 0; c--)
+    {
+      // Shift every region by 1 toward right to make room at left
+      this->regions[r][c + 1] = this->regions[r][c];
+    }
+  }
+
   this->colCount++;
 
   // Create the first column with new regions
