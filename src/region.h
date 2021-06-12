@@ -35,7 +35,7 @@ public:
 
   Region(int row, int col);
 
-  void adjustPlacementInUniverse(int newRow, int newCol);
+  void adjustPosition(int newRow, int newCol);
 
   // To get the reference of a cell at a position
   bool &cell(int row, int col);

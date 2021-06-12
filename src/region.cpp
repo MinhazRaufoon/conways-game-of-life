@@ -130,7 +130,7 @@ void Region::setLeftNeighborEdge(Region &neighbor)
   }
 }
 
-void Region::adjustPlacementInUniverse(int newRow, int newCol)
+void Region::adjustPosition(int newRow, int newCol)
 {
   this->rowIndex = newRow;
   this->columnIndex = newCol;
