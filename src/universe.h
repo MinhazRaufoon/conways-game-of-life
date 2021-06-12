@@ -8,8 +8,8 @@
 class Universe
 {
 public:
-  static constexpr int MAX_ROWS{8};
-  static constexpr int MAX_COLS{5};
+  static constexpr int MAX_ROWS{20};
+  static constexpr int MAX_COLS{15};
   static constexpr int WIDTH{MAX_COLS * Region::LENGTH};
   static constexpr int HEIGHT{MAX_ROWS * Region::LENGTH};
 
