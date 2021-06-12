@@ -6,11 +6,14 @@
 
 class Universe
 {
+private:
+  std::vector<Region *> regions;
+
+  void expand();
+
 public:
   static constexpr int MAX_ROWS{10};
   static constexpr int MAX_COLS{10};
-
-  std::vector<Region *> regions;
 
   void begin();
 
