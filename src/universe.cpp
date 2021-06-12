@@ -16,9 +16,19 @@ Universe::Universe()
   reg(9, 12) = true;
 }
 
-void Universe::run()
+void Universe::begin()
 {
-  this->display();
+  this->running = true;
+}
+
+void Universe::end()
+{
+  this->running = false;
+}
+
+bool Universe::isRunning()
+{
+  return this->running;
 }
 
 void Universe::evolveAllRegions()

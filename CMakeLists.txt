@@ -7,6 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 
-add_executable(GameOfLife src/main.cpp src/region.h src/region.cpp src/universe.h src/universe.cpp)
+find_package (Threads)
+
+add_executable(GameOfLife src/main.cpp src/region.h src/region.cpp src/universe.h src/universe.cpp src/concurrent.h src/concurrent.cpp)
 
 target_link_libraries(GameOfLife sfml-graphics sfml-window sfml-system)
+target_link_libraries (GameOfLife ${CMAKE_THREAD_LIBS_INIT})

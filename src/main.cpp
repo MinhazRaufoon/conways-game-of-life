@@ -1,13 +1,16 @@
+#include <thread>
 #include "universe.h"
+#include "concurrent.h"
 #include <SFML/Graphics.hpp>
 
 int main()
 {
   Universe conwayUniverse;
-
   sf::RenderWindow window(sf::VideoMode(Universe::HEIGHT, Universe::WIDTH), "Conway's Game of Life");
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
+
+  std::thread conwayThread(conwaySimulationThread, &conwayUniverse);
+
+  //sf::Vertex point(sf::Vector2f(1, 1), sf::Color::Green);
 
   while (window.isOpen())
   {
@@ -15,15 +18,18 @@ int main()
     while (window.pollEvent(event))
     {
       if (event.type == sf::Event::Closed)
+      {
+        conwayUniverse.end();
         window.close();
+      }
     }
 
-    window.clear();
-    window.draw(shape);
-    window.display();
+    // window.clear();
+    // window.draw(&point, 1, sf::Points);
+    // window.display();
   }
 
-  conwayUniverse.run();
+  conwayThread.join();
 
   return 0;
 }

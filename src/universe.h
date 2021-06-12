@@ -15,6 +15,8 @@ public:
 private:
   std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> regions{};
 
+  bool running{false};
+
   bool shouldExpandUp();
 
   void expandUp();
@@ -41,7 +43,11 @@ public:
 
   Universe();
 
-  void run();
+  bool isRunning();
+
+  void begin();
+
+  void end();
 
   void next();
 
