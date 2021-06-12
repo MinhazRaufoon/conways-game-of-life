@@ -14,6 +14,8 @@ public:
 
   void begin();
 
+  void next();
+
   ~Universe();
 };
 

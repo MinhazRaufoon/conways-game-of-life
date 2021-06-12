@@ -2,28 +2,28 @@
 
 void Universe::begin()
 {
-  this->regions.push_back(new Region);
+  Region *pReg = new Region;
+  this->regions.push_back(pReg);
 
-  Region &reg = *this->regions[0];
-
+  Region &reg = *pReg;
   reg(10, 10) = true;
   reg(10, 11) = true;
   reg(11, 11) = true;
   reg(9, 11) = true;
   reg(9, 12) = true;
+}
 
-  std::cout << reg << std::endl;
-
-  std::cout << std::endl;
-
-  //reg = reg.evolve();
-
-  //std::cout << reg << std::endl;
+void Universe::next()
+{
+  for (Region *pReg : this->regions)
+  {
+    *pReg = pReg->evolve();
+  }
 }
 
 Universe::~Universe()
 {
-  for (auto pReg : this->regions)
+  for (Region *pReg : this->regions)
   {
     delete pReg;
   }
