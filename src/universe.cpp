@@ -47,52 +47,56 @@ void Universe::evolveAllRegions()
   }
 }
 
+bool Universe::shouldExpandUp()
+{
+  for (int c{}; c < this->colCount; c++)
+  {
+    // If any region at top edge is reproductive
+    if (this->grid[0][c]->hasReproductiveTop())
+      return true;
+  }
+  return false;
+}
+
+bool Universe::shouldExpandDown()
+{
+  for (int c{}; c < this->colCount; c++)
+  {
+    // If any region at bottom edge is reproductive
+    if (this->grid[this->rowCount - 1][c]->hasReproductiveBottom())
+      return true;
+  }
+  return false;
+}
+
+bool Universe::shouldExpandLeft()
+{
+  for (int r{}; r < this->rowCount; r++)
+  {
+    // If any region at left edge is reproductive
+    if (this->grid[r][0]->hasReproductiveLeft())
+      return true;
+  }
+  return false;
+}
+
+bool Universe::shouldExpandRight()
+{
+  for (int r{}; r < this->rowCount; r++)
+  {
+    // If any region at right edge is reproductive
+    if (this->grid[r][this->colCount - 1]->hasReproductiveRight())
+      return true;
+  }
+  return false;
+}
+
 void Universe::expand()
 {
   bool shouldExpandUp{false};
   bool shouldExpandDown{false};
   bool shouldExpandLeft{false};
   bool shouldExpandRight{false};
-
-  for (int c{}; c < this->colCount; c++)
-  {
-    if (this->grid[0][c]->hasReproductiveTop())
-    {
-      // If any region at top edge is reproductive
-      shouldExpandUp = true;
-      break;
-    }
-  }
-
-  for (int c{}; c < this->colCount; c++)
-  {
-    if (this->grid[this->rowCount - 1][c]->hasReproductiveBottom())
-    {
-      // If any region at bottom edge is reproductive
-      shouldExpandDown = true;
-      break;
-    }
-  }
-
-  for (int r{}; r < this->rowCount; r++)
-  {
-    if (this->grid[r][0]->hasReproductiveLeft())
-    {
-      // If any region at left edge is reproductive
-      shouldExpandLeft = true;
-      break;
-    }
-  }
-
-  for (int r{}; r < this->rowCount; r++)
-  {
-    if (this->grid[r][this->colCount - 1]->hasReproductiveRight())
-    {
-      // If any region at right edge is reproductive
-      shouldExpandRight = true;
-      break;
-    }
-  }
 }
 
 void Universe::next()

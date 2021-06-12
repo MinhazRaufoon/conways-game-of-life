@@ -13,6 +13,14 @@ public:
 private:
   std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> grid{};
 
+  bool shouldExpandUp();
+
+  bool shouldExpandDown();
+
+  bool shouldExpandLeft();
+
+  bool shouldExpandRight();
+
   void expand();
 
   void evolveAllRegions();
