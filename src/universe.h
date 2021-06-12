@@ -8,10 +8,12 @@
 class Universe
 {
 public:
-  static constexpr int MAX_ROWS{20};
-  static constexpr int MAX_COLS{15};
-  static constexpr int WIDTH{MAX_COLS * Region::LENGTH};
-  static constexpr int HEIGHT{MAX_ROWS * Region::LENGTH};
+  static constexpr int MAX_ROWS{15};
+  static constexpr int MAX_COLS{7};
+
+  static constexpr int POINTSCALE{3};
+  static constexpr int WIDTH{POINTSCALE * MAX_COLS * Region::LENGTH};
+  static constexpr int HEIGHT{POINTSCALE * MAX_ROWS * Region::LENGTH};
 
 private:
   std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> regions{};

@@ -13,8 +13,13 @@ int main()
   conwayUniverse.setPointDrawer(
       [&window](int x, int y)
       {
-        sf::Vertex point(sf::Vector2f(x, y), sf::Color::Green);
-        window.draw(&point, 1, sf::Points);
+        // sf::Vertex point(sf::Vector2f(x, y), sf::Color::Green);
+        // window.draw(&point, 1, sf::Points);
+
+        sf::RectangleShape rectangle(sf::Vector2f(Universe::POINTSCALE, Universe::POINTSCALE));
+        rectangle.setPosition(x + Universe::POINTSCALE * (x - 1), y + Universe::POINTSCALE * (y - 1));
+        rectangle.setFillColor(sf::Color::Green);
+        window.draw(rectangle);
       });
 
   conwayUniverse.setDisplayCleaner(

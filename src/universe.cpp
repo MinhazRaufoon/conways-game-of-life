@@ -12,6 +12,11 @@ Universe::Universe()
   int i{Region::LENGTH / 2};
 
   Region &reg = *pReg;
+
+  reg(0, 0) = true;
+  reg(1, 0) = true;
+  reg(0, 1) = true;
+
   reg(i, i) = true;
   reg(i, i + 1) = true;
   reg(i + 1, i + 1) = true;
@@ -248,8 +253,8 @@ void Universe::renderRegion(int row, int col)
     {
       if (region(r, c))
       {
-        int x{(r + 1) * (row + 1)};
-        int y{(c + 1) * (col + 1)};
+        int x{row * Region::LENGTH + r + 1};
+        int y{col * Region::LENGTH + c + 1};
         this->pointDrawer(x, y);
       }
     }
