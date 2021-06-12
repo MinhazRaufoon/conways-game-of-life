@@ -10,9 +10,16 @@ int main()
   reg(9, 12) = true;
   std::cout << reg << std::endl;
 
-  std::cout << std::endl;
+  int x{100};
 
-  std::cout << reg.evolve() << std::endl;
+  Region &ref = reg;
+
+  while (x--)
+  {
+    std::cout << std::endl;
+    ref = ref.evolve();
+    std::cout << ref << std::endl;
+  }
 
   return 0;
 }
