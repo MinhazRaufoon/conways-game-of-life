@@ -29,7 +29,7 @@ int main()
         window.display();
       });
 
-  /* Create necessary threads */
+    /* Create necessary threads */
   std::thread conwayThread(conwaySimulationThread, &conwayUniverse);
 
   while (window.isOpen())

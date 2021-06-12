@@ -237,6 +237,20 @@ void Universe::display()
 
 void Universe::renderRegion(int row, int col)
 {
+  Region &region = *this->regions[row][col];
+
+  for (int r{}; r < Region::LENGTH; r++)
+  {
+    for (int c{}; c < Region::LENGTH; c++)
+    {
+      if (region(r, c))
+      {
+        int x{(r + 1) * (row + 1)};
+        int y{(c + 1) * (col + 1)};
+        this->pointDrawer(x, y);
+      }
+    }
+  }
 }
 
 std::ostream &operator<<(std::ostream &out, const Universe &universe)

@@ -4,10 +4,11 @@
 
 void conwaySimulationThread(Universe *conwayUniverse)
 {
-  int c{10};
-  while (conwayUniverse->isRunning() && c--)
+  conwayUniverse->begin();
+
+  while (conwayUniverse->isRunning())
   {
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     conwayUniverse->next();
     conwayUniverse->display();
   }
