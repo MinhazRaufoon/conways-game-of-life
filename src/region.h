@@ -13,9 +13,7 @@ public:
   /* Region dimension of each side */
   static constexpr int LENGTH{20};
 
-  /* The area of the region consisting of WIDTH x HEIGHT bits */
-  std::array<std::array<bool, LENGTH>, LENGTH> grid{};
-
+private:
   /* Neighbor edges */
   std::map<std::string, std::array<bool, LENGTH>> neighborEdges{
       {"top", {}},
@@ -24,6 +22,10 @@ public:
       {"left", {}},
   };
 
+  /* The area of the region consisting of WIDTH x HEIGHT bits */
+  std::array<std::array<bool, LENGTH>, LENGTH> grid{};
+
+public:
   // To get the reference of a cell at a position
   bool &cell(int row, int col);
 
