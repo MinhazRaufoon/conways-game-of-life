@@ -109,7 +109,7 @@ void Universe::expandUp()
   {
     for (int c{0}; c < this->colCount; c++)
     {
-      // Shift every region by 1 toward right to make room at left
+      // Shift every region by 1 downward to make room at the top
       this->regions[r + 1][c] = this->regions[r][c];
     }
   }
