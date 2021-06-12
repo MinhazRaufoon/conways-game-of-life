@@ -33,6 +33,12 @@ public:
   // To count neighboring dead cells
   int countDeadNeighbors(int row, int col);
 
+  // To calculate neighbors' edges
+  void setTopNeighborEdge(Region &neighbor);
+  void setRightNeighborEdge(Region &neighbor);
+  void setBottomNeighborEdge(Region &neighbor);
+  void setLeftNeighborEdge(Region &neighbor);
+
   /* To evolve to next generation */
   Region evolve();
 

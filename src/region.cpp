@@ -82,3 +82,43 @@ Region Region::evolve()
 
   return evolved;
 }
+
+void Region::setTopNeighborEdge(Region &neighbor)
+{
+  std::string key{"top"};
+
+  for (int c{}; c < this->LENGTH; c++)
+  {
+    this->neighborEdges[key][c] = neighbor.cell(this->LENGTH - 1, c);
+  }
+}
+
+void Region::setRightNeighborEdge(Region &neighbor)
+{
+  std::string key{"right"};
+
+  for (int r{}; r < this->LENGTH; r++)
+  {
+    this->neighborEdges[key][r] = neighbor.cell(r, 0);
+  }
+}
+
+void Region::setBottomNeighborEdge(Region &neighbor)
+{
+  std::string key{"bottom"};
+
+  for (int c{}; c < this->LENGTH; c++)
+  {
+    this->neighborEdges[key][c] = neighbor.cell(0, c);
+  }
+}
+
+void Region::setLeftNeighborEdge(Region &neighbor)
+{
+  std::string key{"left"};
+
+  for (int r{}; r < this->LENGTH; r++)
+  {
+    this->neighborEdges[key][r] = neighbor.cell(r, this->LENGTH);
+  }
+}
