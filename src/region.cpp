@@ -10,8 +10,8 @@ Region::~Region()
   std::cout << "Region destroyed at " << this->rowIndex << "," << this->columnIndex << std::endl;
 }
 
-Region::Region(int row, int col)
-    : rowIndex{row}, columnIndex{col}
+Region::Region(int rowIndex, int columnIndex)
+    : rowIndex{rowIndex}, columnIndex{columnIndex}
 {
   std::cout << "Region created at " << this->rowIndex << "," << this->columnIndex << std::endl;
 }
@@ -54,7 +54,7 @@ bool &Region::cell(int row, int col)
   return this->operator()(row, col);
 }
 
-int Region::countAliveNeighbors(int row, int col)
+int Region::countAliveNeighborCells(int row, int col)
 {
   int count{0};
   for (int i{row - 1}; i <= row + 1; i++)
@@ -73,9 +73,9 @@ int Region::countAliveNeighbors(int row, int col)
   return count;
 }
 
-int Region::countDeadNeighbors(int row, int col)
+int Region::countDeadNeighborCells(int row, int col)
 {
-  return 8 - this->countAliveNeighbors(row, col);
+  return 8 - this->countAliveNeighborCells(row, col);
 }
 
 Region Region::evolve()
@@ -87,7 +87,7 @@ Region Region::evolve()
   {
     for (int c{}; c < this->LENGTH; c++)
     {
-      int aliveNeighborCount = this->countAliveNeighbors(r, c);
+      int aliveNeighborCount = this->countAliveNeighborCells(r, c);
 
       if (this->cell(r, c))
       {
@@ -149,8 +149,8 @@ void Region::setLeftNeighborEdge(Region &leftNeighbor)
   }
 }
 
-void Region::adjustPosition(int newRow, int newCol)
+void Region::adjustPosition(int newRowIndex, int newColumnIndex)
 {
-  this->rowIndex = newRow;
-  this->columnIndex = newCol;
+  this->rowIndex = newRowIndex;
+  this->columnIndex = newColumnIndex;
 }

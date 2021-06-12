@@ -47,14 +47,22 @@ void Universe::evolveAllRegions()
   }
 }
 
+void Universe::expand()
+{
+  bool shouldExpandUp{false};
+  bool shouldDown{false};
+  bool shouldLeft{false};
+  bool shouldRight{false};
+
+  for (int c{}; c < this->colCount; c++)
+  {
+  }
+}
+
 void Universe::next()
 {
   this->evolveAllRegions();
   this->expand();
-}
-
-void expand()
-{
 }
 
 Universe::~Universe()

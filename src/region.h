@@ -29,20 +29,20 @@ private:
   /* The area of the region consisting of WIDTH x HEIGHT bits */
   std::array<std::array<bool, LENGTH>, LENGTH> grid{};
 
+  int countAliveNeighborCells(int row, int col);
+
+  int countDeadNeighborCells(int row, int col);
+
 public:
   /* Constructors */
   Region();
 
-  Region(int row, int col);
+  Region(int rowIndex, int columnIndex);
 
-  void adjustPosition(int newRow, int newCol);
+  void adjustPosition(int newRowIndex, int newColumnIndex);
 
-  // To get the reference of a cell at a position
+  // To get a cell at a position
   bool &cell(int row, int col);
-
-  int countAliveNeighbors(int row, int col);
-
-  int countDeadNeighbors(int row, int col);
 
   /* To calculate neighbors' edges */
   void setTopNeighborEdge(Region &topNeighbor);
