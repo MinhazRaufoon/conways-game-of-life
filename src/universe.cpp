@@ -49,6 +49,9 @@ void Universe::evolveAllRegions()
 
 bool Universe::shouldExpandUp()
 {
+  if (this->rowCount == this->MAX_ROWS)
+    return false;
+
   for (int c{}; c < this->colCount; c++)
   {
     // If any region at top edge is reproductive
@@ -60,6 +63,9 @@ bool Universe::shouldExpandUp()
 
 bool Universe::shouldExpandDown()
 {
+  if (this->rowCount == this->MAX_ROWS)
+    return false;
+
   for (int c{}; c < this->colCount; c++)
   {
     // If any region at bottom edge is reproductive
@@ -71,6 +77,9 @@ bool Universe::shouldExpandDown()
 
 bool Universe::shouldExpandLeft()
 {
+  if (this->colCount == this->MAX_COLS)
+    return false;
+
   for (int r{}; r < this->rowCount; r++)
   {
     // If any region at left edge is reproductive
@@ -82,6 +91,9 @@ bool Universe::shouldExpandLeft()
 
 bool Universe::shouldExpandRight()
 {
+  if (this->colCount == this->MAX_COLS)
+    return false;
+
   for (int r{}; r < this->rowCount; r++)
   {
     // If any region at right edge is reproductive
@@ -94,6 +106,12 @@ bool Universe::shouldExpandRight()
 void Universe::expandUp()
 {
   this->rowCount++;
+
+  // Create the first row with new regions
+  for (int c{}; c < this->colCount; c++)
+  {
+    this->regions[0][c] = new Region;
+  }
 }
 
 void Universe::expandDown()
@@ -113,7 +131,7 @@ void Universe::expandLeft()
 {
   this->colCount++;
 
-  // Create the last column with new regions
+  // Create the first column with new regions
   for (int r{}; r < this->rowCount; r++)
   {
     this->regions[r][0] = new Region;
