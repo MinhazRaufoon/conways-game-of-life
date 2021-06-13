@@ -1,19 +1,5 @@
-#include <thread>
-#include <chrono>
 #include "universe.h"
 #include <SFML/Graphics.hpp>
-
-void conwaySimulationThread(Universe *conwayUniverse)
-{
-  conwayUniverse->begin();
-
-  while (conwayUniverse->isRunning())
-  {
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    conwayUniverse->display();
-    conwayUniverse->next();
-  }
-}
 
 int main()
 {
@@ -43,8 +29,7 @@ int main()
         window.display();
       });
 
-  /* Create necessary threads */
-  std::thread conwayThread(conwaySimulationThread, &conwayUniverse);
+  conwayUniverse.begin();
 
   while (window.isOpen())
   {
@@ -58,9 +43,6 @@ int main()
       }
     }
   }
-
-  /* Join for threads */
-  conwayThread.join();
 
   return 0;
 }

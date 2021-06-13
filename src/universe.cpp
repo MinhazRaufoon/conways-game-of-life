@@ -1,6 +1,7 @@
 #include <vector>
 #include <functional>
 #include <thread>
+#include <chrono>
 #include "universe.h"
 
 Universe::Universe()
@@ -38,14 +39,26 @@ void Universe::setDisplayUpdater(std::function<void()> func)
   this->displayUpdater = func;
 }
 
+void conwaySimulationThread(Universe *conwayUniverse)
+{
+  while (conwayUniverse->isRunning())
+  {
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    conwayUniverse->display();
+    conwayUniverse->next();
+  }
+}
+
 void Universe::begin()
 {
   this->running = true;
+  this->conwayThread = new std::thread(conwaySimulationThread, this);
 }
 
 void Universe::end()
 {
   this->running = false;
+  this->conwayThread->join();
 }
 
 bool Universe::isRunning()

@@ -2,6 +2,7 @@
 #define UNIVERSE_H
 
 #include <array>
+#include <thread>
 #include <functional>
 #include "region.h"
 
@@ -14,6 +15,7 @@ public:
   static constexpr int POINTSCALE{3};
   static constexpr int WIDTH{POINTSCALE * MAX_COLS * Region::LENGTH};
   static constexpr int HEIGHT{POINTSCALE * MAX_ROWS * Region::LENGTH};
+  std::thread *conwayThread{nullptr};
 
 private:
   std::array<std::array<Region *, MAX_COLS>, MAX_ROWS> regions{};
