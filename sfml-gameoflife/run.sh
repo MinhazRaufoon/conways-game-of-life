@@ -10,4 +10,7 @@ cmake ../ && cmake --build .
 
 echo "Build successful!"
 
-./SFMLGameOfLife
+cd ..
+rm -rf dist
+mkdir dist
+cp ./build/SFMLGameOfLife ./dist/GameOfLife
