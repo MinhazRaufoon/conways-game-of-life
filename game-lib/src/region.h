@@ -22,6 +22,14 @@ private:
       {"left", {}},
   };
 
+  struct
+  {
+    bool topLeft;
+    bool topRight;
+    bool bottomLeft;
+    bool bottomRight;
+  } corners{false, false, false, false};
+
   /* The grid of the region consists of WIDTH x HEIGHT bits */
   std::array<std::array<bool, LENGTH>, LENGTH> cells{};
 
@@ -35,6 +43,8 @@ public:
 
   // To get a cell at a position
   bool &cell(int row, int col);
+
+  void setCorners(bool topLeft, bool topRight, bool bottomLeft, bool bottomRight);
 
   /* To calculate neighbors' edges */
   void setTopNeighborEdge(Region &topNeighbor);
@@ -58,6 +68,8 @@ public:
   bool hasReproductiveRight();
 
   bool &operator()(int row, int col);
+
+  static int getTotalRegionCount();
 
   friend std::ostream &operator<<(std::ostream &out, const Region &region);
 

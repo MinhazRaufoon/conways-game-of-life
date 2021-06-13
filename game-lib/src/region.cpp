@@ -7,6 +7,11 @@ Region::Region()
   g_allocatedRegionCount++;
 }
 
+int Region::getTotalRegionCount()
+{
+  return g_allocatedRegionCount;
+}
+
 Region::~Region()
 {
   g_allocatedRegionCount--;
@@ -33,6 +38,16 @@ std::ostream &operator<<(std::ostream &out, const Region &region)
 
 bool &Region ::operator()(int row, int col)
 {
+  // If trying to access a corner cell from a corner neighbor, use this->corners
+  if (row == 0 && col == 0)
+    return this->corners.topLeft;
+  else if (row == 0 && col == this->LENGTH)
+    return this->corners.topRight;
+  else if (row == this->LENGTH && col == 0)
+    return this->corners.bottomLeft;
+  else if (row == this->LENGTH && col == this->LENGTH)
+    return this->corners.bottomRight;
+
   // If trying to access a cell from neighbor regions, read from this->neighborEdges
   if (row < 0)
     return this->neighborEdges["top"][col];
@@ -192,4 +207,9 @@ bool Region::hasReproductiveRight()
       return true;
   }
   return false;
+}
+
+void Region::setCorners(bool topLeft, bool topRight, bool bottomLeft, bool bottomRight)
+{
+  this->corners = {topLeft, topRight, bottomLeft, bottomRight};
 }

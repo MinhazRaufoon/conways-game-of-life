@@ -73,22 +73,26 @@ void Universe::evolveAllRegions()
 {
   std::vector<std::function<void()>> tasks;
 
+  std::cout << "Universe : " << this->rowCount << " x " << this->colCount << std::endl;
+  std::cout << "Total regions created: " << Region::getTotalRegionCount() << std::endl;
+  std::cout << "###########Evolution begins##########" << std::endl;
+
   // For all regions, create tasks for evolution
   for (int r{}; r < this->rowCount; r++)
   {
     for (int c{}; c < this->colCount; c++)
     {
-      Region *pRegion = this->regions[r][c];
-
-      int colCount = this->colCount;
-      int rowCount = this->rowCount;
-
-      auto &regions = this->regions;
-
       tasks.push_back(
-          [pRegion, r, c, colCount, rowCount, &regions]() mutable
+          [r, c, this]() mutable
           {
-            // Copy the neighbor edges
+            std::cout << "Thread(<<" << r << "," << c << ") working" << std::endl;
+
+            Region *pRegion = this->regions[r][c];
+            int colCount = this->colCount;
+            int rowCount = this->rowCount;
+            auto &regions = this->regions;
+
+            /* Copy neighbor edges */
             if (r > 0)
               pRegion->setTopNeighborEdge(*regions[r - 1][c]);
 
@@ -101,15 +105,40 @@ void Universe::evolveAllRegions()
             if (c > 0)
               pRegion->setLeftNeighborEdge(*regions[r][c - 1]);
 
+            /* Set corner points */
+            bool topLeftCorner{false};
+            bool topRightCorner{false};
+            bool bottomLeftCorner{false};
+            bool bottomRightCorner{false};
+
+            if (r > 0 && c > 0)
+              topLeftCorner = false;
+
+            if (r > 0 && c < Universe::MAX_COLS - 1)
+              topRightCorner = false;
+
+            if (r < Universe::MAX_ROWS - 1 && c > 0)
+              bottomLeftCorner = false;
+
+            if (r < Universe::MAX_ROWS - 1 && c < Universe::MAX_COLS - 1)
+              bottomRightCorner = false;
+
+            pRegion->setCorners(topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner);
+
             // Evolve each regions
             *pRegion = pRegion->evolve();
+
+            std::cout << "Thread(<<" << r << "," << c << ") Finished!!!" << std::endl;
           });
     }
   }
 
+  std::cout << "Tasks created" << std::endl;
+
   // Create threads for each task
   std::vector<std::thread> workerThreads;
 
+  std::cout << "Starting all threads" << std::endl;
   // Assign each task to each thread and start executing
   for (auto task : tasks)
   {
@@ -121,6 +150,8 @@ void Universe::evolveAllRegions()
   {
     thread.join();
   }
+
+  std::cout << "All threads joined" << std::endl;
 }
 
 bool Universe::shouldExpandUp()
