@@ -11,10 +11,8 @@ Universe::Universe()
     : rowCount{1}, colCount{1}
 {
   // Create an initial region and add it to universe
-  Region *pReg = new Region;
+  Region *pReg = new Region("R-Pentomino");
   this->regions[0][0] = pReg;
-
-  makePattern(*pReg, "R-Pentomino");
 }
 
 void Universe::makePattern(Region &region, std::string pattern)
@@ -35,7 +33,7 @@ void Universe::makePattern(Region &region, std::string pattern)
     {
       for (int c{}; c < Region::LENGTH; c++)
       {
-        region(r, c) = rand() % 5 == 0;
+        region(r, c) = rand() % 10 == 0;
       }
     }
   }

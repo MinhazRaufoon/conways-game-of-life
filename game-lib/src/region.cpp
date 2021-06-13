@@ -1,7 +1,14 @@
 #include "region.h"
+#include "universe.h"
 
 Region::Region()
 {
+  Universe::makePattern(*this, "");
+}
+
+Region::Region(std::string pattern)
+{
+  Universe::makePattern(*this, pattern);
 }
 
 Region::~Region()

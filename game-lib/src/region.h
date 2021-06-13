@@ -41,6 +41,8 @@ public:
   /* Constructors */
   Region();
 
+  Region(std::string pattern);
+
   // To get a cell at a position
   bool &cell(int row, int col);
 
