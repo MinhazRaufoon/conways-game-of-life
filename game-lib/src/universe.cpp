@@ -98,6 +98,19 @@ void Universe::assignNeighborEdgesParallely()
 
             if (c > 0)
               pRegion->setLeftNeighborEdge(*regions[r][c - 1]);
+
+            /* Set corner points */
+            if (r > 0 && c > 0)
+              pRegion->setTopLeftNeighborCorner(regions[r - 1][c - 1]);
+
+            if (r > 0 && c < this->colCount - 1)
+              pRegion->setTopRightNeighborCorner(regions[r - 1][c + 1]);
+
+            if (r < this->rowCount - 1 && c > 0)
+              pRegion->setBottomLeftNeighborCorner(regions[r + 1][c - 1]);
+
+            if (r < this->rowCount - 1 && c < this->colCount - 1)
+              pRegion->setBottomRightNeighborCorner(regions[r + 1][c + 1]);
           });
     }
   }
@@ -123,20 +136,6 @@ void Universe::evolveAllRegionsParallely()
           [r, c, this]() mutable
           {
             Region *pRegion = this->regions[r][c];
-            /* Set corner points */
-            /*
-            if (r > 0 && c > 0)
-              pRegion->setTopLeftNeighborCorner(regions[r - 1][c - 1]);
-
-            if (r > 0 && c < Universe::MAX_COLS - 1)
-              pRegion->setTopRightNeighborCorner(regions[r - 1][c + 1]);
-
-            if (r < Universe::MAX_ROWS - 1 && c > 0)
-              pRegion->setBottomLeftNeighborCorner(regions[r + 1][c - 1]);
-
-            if (r < Universe::MAX_ROWS - 1 && c < Universe::MAX_COLS - 1)
-              pRegion->setBottomRightNeighborCorner(regions[r + 1][c + 1]);
-            */
 
             // Evolve each regions
             pRegion->evolve();

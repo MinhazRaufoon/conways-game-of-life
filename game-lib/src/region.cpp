@@ -207,28 +207,20 @@ bool Region::hasReproductiveRight()
 
 void Region::setTopLeftNeighborCorner(Region *topLeftNeighbor)
 {
-  std::cout << "setTopLeftNeighborCorner" << std::endl;
-  std::cout << *topLeftNeighbor << std::endl;
   this->corners.topLeft = topLeftNeighbor->cell(this->LENGTH - 1, this->LENGTH - 1);
 }
 
 void Region::setTopRightNeighborCorner(Region *topRightNeighbor)
 {
-  std::cout << "setTopRightNeighborCorner" << std::endl;
-  std::cout << *topRightNeighbor << std::endl;
   this->corners.topRight = topRightNeighbor->cell(this->LENGTH - 1, 0);
 }
 
 void Region::setBottomLeftNeighborCorner(Region *bottomLeftNeighbor)
 {
-  std::cout << "setBottomLeftNeighborCorner" << std::endl;
-  std::cout << *bottomLeftNeighbor << std::endl;
   this->corners.bottomLeft = bottomLeftNeighbor->cell(0, this->LENGTH - 1);
 }
 
 void Region::setBottomRightNeighborCorner(Region *bottomRightNeighbor)
 {
-  std::cout << "setBottomRightNeighborCorner" << std::endl;
-  std::cout << *bottomRightNeighbor << std::endl;
   this->corners.bottomRight = bottomRightNeighbor->cell(0, 0);
 }
