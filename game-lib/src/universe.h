@@ -12,6 +12,8 @@ public:
   static constexpr int MAX_ROWS{12};
   static constexpr int MAX_COLS{7};
 
+  static void makePattern(Region &region, std::string pattern);
+
   std::thread *conwayThread{nullptr};
 
 private:

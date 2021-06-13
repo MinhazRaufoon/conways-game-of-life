@@ -14,25 +14,31 @@ Universe::Universe()
   Region *pReg = new Region;
   this->regions[0][0] = pReg;
 
-  // Make some cells alive as an initial state
+  makePattern(*pReg, "R-Pentomino");
+}
 
+void Universe::makePattern(Region &region, std::string pattern)
+{
   int i{Region::LENGTH / 2};
 
-  Region &reg = *pReg;
-
-  for (int r{}; r < Region::LENGTH; r++)
+  if (pattern == "R-Pentomino")
   {
-    for (int c{}; c < Region::LENGTH; c++)
+    region(i, i) = true;
+    region(i, i + 1) = true;
+    region(i + 1, i + 1) = true;
+    region(i - 1, i + 1) = true;
+    region(i - 1, i + 2) = true;
+  }
+  else
+  {
+    for (int r{}; r < Region::LENGTH; r++)
     {
-      reg(r, c) = rand() % 2 == 0;
+      for (int c{}; c < Region::LENGTH; c++)
+      {
+        region(r, c) = rand() % 5 == 0;
+      }
     }
   }
-
-  reg(i, i) = true;
-  reg(i, i + 1) = true;
-  reg(i + 1, i + 1) = true;
-  reg(i - 1, i + 1) = true;
-  reg(i - 1, i + 2) = true;
 }
 
 void Universe::setPointDrawer(std::function<void(int, int)> func)
