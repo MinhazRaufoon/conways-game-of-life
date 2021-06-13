@@ -12,9 +12,6 @@ public:
   static constexpr int MAX_ROWS{12};
   static constexpr int MAX_COLS{7};
 
-  static constexpr int POINTSCALE{3};
-  static constexpr int WIDTH{POINTSCALE * MAX_COLS * Region::LENGTH};
-  static constexpr int HEIGHT{POINTSCALE * MAX_ROWS * Region::LENGTH};
   std::thread *conwayThread{nullptr};
 
 private:

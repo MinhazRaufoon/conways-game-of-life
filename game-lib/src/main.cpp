@@ -1,9 +1,14 @@
 #include "universe.h"
+#include "game_of_life.h"
 #include <SFML/Graphics.hpp>
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode(Universe::HEIGHT, Universe::WIDTH), "Conway's Game of Life");
+  constexpr int SCALE{3};
+  const int WWIDTH{GameOfLife_GetTotalHorizontalCells() * SCALE};
+  const int WHEIGHT{GameOfLife_GetTotalVerticalCells() * SCALE};
+
+  sf::RenderWindow window(sf::VideoMode(WHEIGHT, WWIDTH), "Conway's Game of Life");
 
   Universe conwayUniverse;
 
@@ -11,8 +16,8 @@ int main()
   conwayUniverse.setPointDrawer(
       [&window](int x, int y)
       {
-        sf::RectangleShape rectangle(sf::Vector2f(Universe::POINTSCALE, Universe::POINTSCALE));
-        rectangle.setPosition(x + Universe::POINTSCALE * (x - 1), y + Universe::POINTSCALE * (y - 1));
+        sf::RectangleShape rectangle(sf::Vector2f(SCALE, SCALE));
+        rectangle.setPosition(x + SCALE * (x - 1), y + SCALE * (y - 1));
         rectangle.setFillColor(sf::Color::Green);
         window.draw(rectangle);
       });
