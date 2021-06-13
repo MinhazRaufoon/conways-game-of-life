@@ -2,6 +2,7 @@
 #include <functional>
 #include <thread>
 #include <chrono>
+#include <cstdlib>
 #include "universe.h"
 
 int g_regionCount = 1;
@@ -18,6 +19,14 @@ Universe::Universe()
   int i{Region::LENGTH / 2};
 
   Region &reg = *pReg;
+
+  for (int r{}; r < Region::LENGTH; r++)
+  {
+    for (int c{}; c < Region::LENGTH; c++)
+    {
+      reg(r, c) = rand() % 2 == 0;
+    }
+  }
 
   reg(i, i) = true;
   reg(i, i + 1) = true;
@@ -226,8 +235,6 @@ void Universe::expandUp()
     this->regions[0][c] = new Region;
     g_regionCount++;
   }
-
-  std::cout << "Universe expanded upward######################" << std::endl;
 }
 
 void Universe::expandDown()
@@ -242,8 +249,6 @@ void Universe::expandDown()
     this->regions[lastRow][c] = new Region;
     g_regionCount++;
   }
-
-  std::cout << "Universe expanded downward######################" << std::endl;
 }
 
 void Universe::expandLeft()
@@ -265,7 +270,6 @@ void Universe::expandLeft()
     this->regions[r][0] = new Region;
     g_regionCount++;
   }
-  std::cout << "Universe expanded left######################" << std::endl;
 }
 
 void Universe::expandRight()
@@ -280,7 +284,6 @@ void Universe::expandRight()
     this->regions[r][lastCol] = new Region;
     g_regionCount++;
   }
-  std::cout << "Universe expanded right######################" << std::endl;
 }
 
 void Universe::expand()
@@ -300,10 +303,6 @@ void Universe::expand()
 
 void Universe::next()
 {
-  std::cout << "Universe : " << this->rowCount << " x " << this->colCount << std::endl;
-  std::cout << "Total regions created: " << g_regionCount << std::endl;
-  std::cout << "###########Evolution begins##########" << std::endl;
-
   this->assignNeighborEdgesParallely();
   this->evolveAllRegionsParallely();
   this->expand();

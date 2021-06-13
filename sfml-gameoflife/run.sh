@@ -14,3 +14,4 @@ cd ..
 rm -rf dist
 mkdir dist
 cp ./build/SFMLGameOfLife ./dist/GameOfLife
+./dist/GameOfLife
