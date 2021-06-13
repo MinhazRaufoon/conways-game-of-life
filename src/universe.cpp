@@ -328,4 +328,6 @@ Universe::~Universe()
       delete this->regions[r][c];
     }
   }
+
+  delete this->conwayThread;
 }
