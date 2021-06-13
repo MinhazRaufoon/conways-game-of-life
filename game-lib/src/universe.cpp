@@ -57,6 +57,9 @@ void Universe::begin()
 
 void Universe::end()
 {
+  if (!this->running)
+    return;
+
   this->running = false;
   this->conwayThread->join();
 }
