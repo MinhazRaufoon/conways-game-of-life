@@ -71,15 +71,9 @@ bool Universe::isRunning()
   return this->running;
 }
 
-void Universe::evolveAllRegions()
+void Universe::assignNeighborEdgesParallely()
 {
-  std::cout << "Universe : " << this->rowCount << " x " << this->colCount << std::endl;
-  std::cout << "Total regions created: " << g_regionCount << std::endl;
-  std::cout << "###########Evolution begins##########" << std::endl;
-
   std::vector<std::thread> workerThreads;
-
-  /* Create neighbor edge allocation tasks */
   std::vector<std::function<void()>> neighborEdgeCalcTasks;
 
   for (int r{}; r < this->rowCount; r++)
@@ -114,10 +108,11 @@ void Universe::evolveAllRegions()
 
   for (std::thread &thread : workerThreads)
     thread.join();
+}
 
-  workerThreads.erase(workerThreads.begin(), workerThreads.end());
-
-  /* Create evolution tasks */
+void Universe::evolveAllRegionsParallely()
+{
+  std::vector<std::thread> workerThreads;
   std::vector<std::function<void()>> evolutionTasks;
 
   for (int r{}; r < this->rowCount; r++)
@@ -306,7 +301,12 @@ void Universe::expand()
 
 void Universe::next()
 {
-  this->evolveAllRegions();
+  std::cout << "Universe : " << this->rowCount << " x " << this->colCount << std::endl;
+  std::cout << "Total regions created: " << g_regionCount << std::endl;
+  std::cout << "###########Evolution begins##########" << std::endl;
+
+  this->assignNeighborEdgesParallely();
+  this->evolveAllRegionsParallely();
   this->expand();
 }
 

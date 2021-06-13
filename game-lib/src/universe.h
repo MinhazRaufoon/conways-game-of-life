@@ -36,7 +36,8 @@ private:
 
   void expand();
 
-  void evolveAllRegions();
+  void assignNeighborEdgesParallely();
+  void evolveAllRegionsParallely();
 
   void renderRegion(int row, int col);
 
