@@ -1,4 +1,3 @@
-#include "universe.h"
 #include "game_of_life.h"
 #include <SFML/Graphics.hpp>
 
@@ -10,31 +9,27 @@ int main()
 
   sf::RenderWindow window(sf::VideoMode(WHEIGHT, WWIDTH), "Conway's Game of Life");
 
-  Universe conwayUniverse;
+  auto pointDrawer = [&window](int x, int y)
+  {
+    sf::RectangleShape rectangle(sf::Vector2f(SCALE, SCALE));
+    rectangle.setPosition(x + SCALE * (x - 1), y + SCALE * (y - 1));
+    rectangle.setFillColor(sf::Color::Green);
+    window.draw(rectangle);
+  };
 
-  /* Set view related functions */
-  conwayUniverse.setPointDrawer(
-      [&window](int x, int y)
-      {
-        sf::RectangleShape rectangle(sf::Vector2f(SCALE, SCALE));
-        rectangle.setPosition(x + SCALE * (x - 1), y + SCALE * (y - 1));
-        rectangle.setFillColor(sf::Color::Green);
-        window.draw(rectangle);
-      });
+  auto displayCleaner = [&window]()
+  {
+    window.clear();
+  };
 
-  conwayUniverse.setDisplayCleaner(
-      [&window]()
-      {
-        window.clear();
-      });
+  auto displayUpdater = [&window]()
+  {
+    window.display();
+  };
 
-  conwayUniverse.setDisplayUpdater(
-      [&window]()
-      {
-        window.display();
-      });
+  GameOfLife_Init(pointDrawer, displayCleaner, displayUpdater);
 
-  conwayUniverse.begin();
+  GameOfLife_Begin();
 
   while (window.isOpen())
   {
@@ -43,7 +38,7 @@ int main()
     {
       if (event.type == sf::Event::Closed)
       {
-        conwayUniverse.end();
+        GameOfLife_Exit();
         window.close();
       }
     }
