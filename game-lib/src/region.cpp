@@ -1,22 +1,11 @@
 #include "region.h"
 
-int g_allocatedRegionCount{0};
-
 Region::Region()
 {
-  g_allocatedRegionCount++;
-}
-
-int Region::getTotalRegionCount()
-{
-  return g_allocatedRegionCount;
 }
 
 Region::~Region()
 {
-  g_allocatedRegionCount--;
-  if (g_allocatedRegionCount == 0)
-    std::cout << "All regions destroyed" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &out, const Region &region)
@@ -91,7 +80,7 @@ int Region::countDeadNeighborCells(int row, int col)
   return 8 - this->countAliveNeighborCells(row, col);
 }
 
-Region Region::evolve()
+void Region::evolve()
 {
   Region evolved;
 
@@ -115,7 +104,14 @@ Region Region::evolve()
     }
   }
 
-  return evolved;
+  // Update region
+  for (int r{}; r < this->LENGTH; r++)
+  {
+    for (int c{}; c < this->LENGTH; c++)
+    {
+      this->cell(r, c) = evolved.cell(r, c);
+    }
+  }
 }
 
 void Region::setTopNeighborEdge(Region &topNeighbor)
@@ -209,7 +205,30 @@ bool Region::hasReproductiveRight()
   return false;
 }
 
-void Region::setCorners(bool topLeft, bool topRight, bool bottomLeft, bool bottomRight)
+void Region::setTopLeftNeighborCorner(Region *topLeftNeighbor)
 {
-  this->corners = {topLeft, topRight, bottomLeft, bottomRight};
+  std::cout << "setTopLeftNeighborCorner" << std::endl;
+  std::cout << *topLeftNeighbor << std::endl;
+  this->corners.topLeft = topLeftNeighbor->cell(this->LENGTH - 1, this->LENGTH - 1);
+}
+
+void Region::setTopRightNeighborCorner(Region *topRightNeighbor)
+{
+  std::cout << "setTopRightNeighborCorner" << std::endl;
+  std::cout << *topRightNeighbor << std::endl;
+  this->corners.topRight = topRightNeighbor->cell(this->LENGTH - 1, 0);
+}
+
+void Region::setBottomLeftNeighborCorner(Region *bottomLeftNeighbor)
+{
+  std::cout << "setBottomLeftNeighborCorner" << std::endl;
+  std::cout << *bottomLeftNeighbor << std::endl;
+  this->corners.bottomLeft = bottomLeftNeighbor->cell(0, this->LENGTH - 1);
+}
+
+void Region::setBottomRightNeighborCorner(Region *bottomRightNeighbor)
+{
+  std::cout << "setBottomRightNeighborCorner" << std::endl;
+  std::cout << *bottomRightNeighbor << std::endl;
+  this->corners.bottomRight = bottomRightNeighbor->cell(0, 0);
 }

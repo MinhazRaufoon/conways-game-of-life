@@ -44,32 +44,28 @@ public:
   // To get a cell at a position
   bool &cell(int row, int col);
 
-  void setCorners(bool topLeft, bool topRight, bool bottomLeft, bool bottomRight);
+  /* To calculate neighbor corner points */
+  void setTopLeftNeighborCorner(Region *topLeftNeighbor);
+  void setTopRightNeighborCorner(Region *topRightNeighbor);
+  void setBottomLeftNeighborCorner(Region *bottomLeftNeighbor);
+  void setBottomRightNeighborCorner(Region *bottomRightNeighbor);
 
   /* To calculate neighbors' edges */
   void setTopNeighborEdge(Region &topNeighbor);
-
   void setRightNeighborEdge(Region &rightNeighbor);
-
   void setBottomNeighborEdge(Region &bottomNeighbor);
-
   void setLeftNeighborEdge(Region &leftNeighbor);
 
   /* To evolve to next generation */
-  Region evolve();
+  void evolve();
 
   /* To determine the reproductive edges */
   bool hasReproductiveTop();
-
   bool hasReproductiveBottom();
-
   bool hasReproductiveLeft();
-
   bool hasReproductiveRight();
 
   bool &operator()(int row, int col);
-
-  static int getTotalRegionCount();
 
   friend std::ostream &operator<<(std::ostream &out, const Region &region);
 
