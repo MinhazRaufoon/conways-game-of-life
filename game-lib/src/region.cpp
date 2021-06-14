@@ -35,11 +35,11 @@ std::ostream &operator<<(std::ostream &out, const Region &region)
 bool &Region ::operator()(int row, int col)
 {
   // If trying to access a corner cell from a corner neighbor, use this->corners
-  if (row == 0 && col == 0)
+  if (row < 0 && col < 0)
     return this->corners.topLeft;
-  else if (row == 0 && col == this->LENGTH)
+  else if (row < 0 && col == this->LENGTH)
     return this->corners.topRight;
-  else if (row == this->LENGTH && col == 0)
+  else if (row == this->LENGTH && col < 0)
     return this->corners.bottomLeft;
   else if (row == this->LENGTH && col == this->LENGTH)
     return this->corners.bottomRight;
