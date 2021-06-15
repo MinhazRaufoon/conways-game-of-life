@@ -15,27 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game_of_life.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="region.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="universe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="game-lib-windows.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="sfml_gameoflife_windows.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game_of_life.cpp">
@@ -47,5 +27,16 @@
     <ClCompile Include="universe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game_of_life.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="region.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="universe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

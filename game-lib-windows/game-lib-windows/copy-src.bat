@@ -1,1 +1,0 @@
-xcopy /s U:\conways-game-of-life\game-lib\src U:\conways-game-of-life\game-lib-windows\game-lib-windows
